@@ -89,15 +89,15 @@
               <strong>Runtime reserved</strong>
             </div>
             <div class="hero-deploy-tabs" aria-label="Hero deploy options">
-              <button class="active" type="button" data-hero-command="curl -fsSL https://virus.network/install.sh | bash">
+              <button class="active" type="button" data-hero-command="curl -fsSL https://raw.githubusercontent.com/mmenicah84/virus-protocol/main/scripts/install.sh | bash">
                 One-liner
               </button>
-              <button type="button" data-hero-command="npm create virus-agent@latest">npm</button>
-              <button type="button" data-hero-command="docker run -it virus/runtime:latest">Docker</button>
+              <button type="button" data-hero-command="git clone https://github.com/mmenicah84/virus-protocol.git">Source</button>
+              <button type="button" data-hero-command="npm install && npm start">Local API</button>
             </div>
             <div class="hero-command-line">
               <span>$</span>
-              <code id="hero-deploy-command">curl -fsSL https://virus.network/install.sh | bash</code>
+              <code id="hero-deploy-command">curl -fsSL https://raw.githubusercontent.com/mmenicah84/virus-protocol/main/scripts/install.sh | bash</code>
               <button type="button" class="hero-copy-command" aria-label="Copy hero deploy command">Copy</button>
             </div>
           </div>
@@ -138,7 +138,7 @@
           </div>
           <p>
             This section is reserved for the VIRUS Runtime installer. CLI, Docker, and source workflows are
-            already shaped so the real commands can drop in once the runtime code is ready.
+            already wired to the GitHub source installer so developers can clone, test, and run the local API.
           </p>
         </div>
 
@@ -151,12 +151,12 @@
                 <span></span>
               </div>
               <div class="deploy-tabs" aria-label="Deploy options">
-                <button class="active" type="button" data-command="curl -fsSL https://virus.network/install.sh | bash">
+                <button class="active" type="button" data-command="curl -fsSL https://raw.githubusercontent.com/mmenicah84/virus-protocol/main/scripts/install.sh | bash">
                   One-liner
                 </button>
-                <button type="button" data-command="npm create virus-agent@latest">npm</button>
-                <button type="button" data-command="docker run -it virus/runtime:latest">Docker</button>
-                <button type="button" data-command="git clone https://github.com/virus-protocol/runtime">Source</button>
+                <button type="button" data-command="git clone https://github.com/mmenicah84/virus-protocol.git">Source</button>
+                <button type="button" data-command="npm install && npm start">Local API</button>
+                <button type="button" data-command="node ./bin/virus.js run &quot;Analyze an AI agent project&quot; --strain research --mode balanced">CLI</button>
               </div>
               <div class="deploy-os" aria-label="Operating systems">
                 <span class="active">macOS & Linux</span>
@@ -167,16 +167,16 @@
               <p># Install the VIRUS runtime, launch a local agent host, and connect your first strain.</p>
               <div class="command-line">
                 <span>$</span>
-                <code id="deploy-command">curl -fsSL https://virus.network/install.sh | bash</code>
+                <code id="deploy-command">curl -fsSL https://raw.githubusercontent.com/mmenicah84/virus-protocol/main/scripts/install.sh | bash</code>
                 <button type="button" class="copy-command" aria-label="Copy deploy command">Copy</button>
               </div>
             </div>
           </div>
           <div class="deploy-note">
-            <strong>Reserved for runtime code</strong>
+            <strong>Runtime installer ready</strong>
             <span>
-              Later this can connect to a real install script, GitHub repository, Docker image, hosted deploy
-              button, and developer documentation.
+              The installer clones the GitHub repository, installs dependencies, runs tests, and prints the next
+              local runtime commands.
             </span>
           </div>
         </div>

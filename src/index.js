@@ -7,3 +7,5 @@ export { createMarketplace } from "./marketplace.js";
 export { createRunReceipt, normalizeRunInput } from "./contract.js";
 export { executeVariants } from "./execution.js";
 export { createAuditTrail } from "./audit.js";
+export { createFileStorage, createMemoryStorage, resolveDataDir } from "./storage.js";
+export { runtimeVersion } from "./version.js";

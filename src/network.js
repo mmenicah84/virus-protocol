@@ -9,7 +9,7 @@ import { executeVariants } from "./execution.js";
 export function createTaskNetwork(options = {}) {
   const input = normalizeRunInput(options);
 
-  const strain = getStrain(input.strain);
+  const strain = resolveStrain(input.strain, options.resolveStrain);
   const dnaValidation = validateDNA(strain);
 
   if (!dnaValidation.ok) {
@@ -61,6 +61,20 @@ export function createTaskNetwork(options = {}) {
     ...network,
     receipt: createRunReceipt({ network }),
   };
+}
+
+function resolveStrain(id, customResolver) {
+  if (customResolver) {
+    const strain = customResolver(id);
+
+    if (!strain) {
+      throw new Error(`Unknown strain: ${id}`);
+    }
+
+    return structuredClone(strain);
+  }
+
+  return getStrain(id);
 }
 
 function createNetworkId(goal, strainId) {

@@ -1,7 +1,9 @@
 #!/usr/bin/env node
-import { createMarketplace, createTaskNetwork } from "../src/index.js";
+import { createFileStorage, createMarketplace, createTaskNetwork, runtimeVersion } from "../src/index.js";
 
 const [, , command, ...args] = process.argv;
+const storage = createFileStorage();
+const marketplace = createMarketplace({ storage });
 
 try {
   if (!command || command === "help") {
@@ -13,22 +15,47 @@ try {
     printJson({
       ok: true,
       runtime: "virus-mvp",
-      version: "0.1.0",
+      version: runtimeVersion,
     });
     process.exit(0);
   }
 
   if (command === "strains") {
-    const marketplace = createMarketplace();
     printJson({
       strains: marketplace.list(),
     });
     process.exit(0);
   }
 
+  if (command === "networks") {
+    printJson({
+      networks: storage.listNetworks().map(summarizeStoredNetwork),
+    });
+    process.exit(0);
+  }
+
+  if (command === "show") {
+    const id = args[0];
+    if (!id) {
+      throw new Error("The show command requires a network id.");
+    }
+
+    const network = storage.findNetwork(id);
+    if (!network) {
+      throw new Error(`Network not found: ${id}`);
+    }
+
+    printJson(network);
+    process.exit(0);
+  }
+
   if (command === "run") {
     const parsed = parseRunArgs(args);
-    const network = createTaskNetwork(parsed);
+    const network = createTaskNetwork({
+      ...parsed,
+      resolveStrain: (id) => marketplace.find(id),
+    });
+    storage.saveNetwork(network);
 
     if (parsed.json) {
       printJson(network);
@@ -43,6 +70,20 @@ try {
 } catch (error) {
   console.error(`VIRUS error: ${error.message}`);
   process.exit(1);
+}
+
+function summarizeStoredNetwork(network) {
+  return {
+    id: network.id,
+    createdAt: network.createdAt,
+    goal: network.goal,
+    strain: network.strain.id,
+    mode: network.input.mode,
+    host: network.host,
+    immuneStatus: network.immuneReview.status,
+    selectedStrategy: network.summary.selectedStrategy,
+    estimatedCostVrs: network.summary.estimatedCostVrs,
+  };
 }
 
 function parseRunArgs(args) {
@@ -105,6 +146,8 @@ Usage:
   virus run "Analyze a competitor" --strain research --mode balanced
   virus run "Fix a bug" --strain code --mode precise --json
   virus strains
+  virus networks
+  virus show vnet_12345678
   virus health
 
 Options:

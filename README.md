@@ -2,7 +2,7 @@
 
 VIRUS is a local-first agent replication protocol for spawning, mutating, reviewing, scoring, and packaging reusable AI task networks.
 
-The current repository is an MVP runtime. It does not require an API key, database, blockchain node, or external model provider. The goal is to establish the core protocol loop first, then make each part replaceable with real LLMs, tool adapters, persistence, payments, and marketplace infrastructure.
+The current repository is an MVP runtime. It does not require an API key, database, blockchain node, or external model provider. The goal is to establish the core protocol loop first, then make each part replaceable with real LLMs, tool adapters, hosted storage, payments, and marketplace infrastructure.
 
 ## Table of Contents
 
@@ -33,6 +33,7 @@ The current repository is an MVP runtime. It does not require an API key, databa
 | Repository | [mmenicah84/virus-protocol](https://github.com/mmenicah84/virus-protocol.git) |
 | Website | TBD |
 | X / Twitter | TBD |
+| Version | 1.0.1 |
 | Current stage | MVP runtime |
 | License | MIT |
 
@@ -65,7 +66,8 @@ Implemented:
 - Variant scoring.
 - Audit trail.
 - Run receipt.
-- In-memory marketplace boundary.
+- Local JSON persistence for task networks and custom strains.
+- Marketplace boundary for built-in and custom strains.
 - Unit tests.
 - Static website and brand prototype.
 
@@ -73,7 +75,6 @@ Not implemented yet:
 
 - Real LLM execution.
 - Real external tool adapters.
-- Persistent storage.
 - Authentication.
 - Hosted runtime.
 - On-chain VRS payments.
@@ -205,29 +206,35 @@ sequenceDiagram
 
 ```text
 .
-├── assets/
-│   └── virus-avatar.svg
-├── bin/
-│   └── virus.js
-├── src/
-│   ├── audit.js
-│   ├── contract.js
-│   ├── dna.js
-│   ├── execution.js
-│   ├── immunity.js
-│   ├── index.js
-│   ├── marketplace.js
-│   ├── mutation.js
-│   ├── network.js
-│   ├── scoring.js
-│   └── server.js
-├── test/
-│   └── network.test.js
-├── index.html
-├── script.js
-├── styles.css
-├── package.json
-└── README.md
+|-- assets/
+|   `-- virus-avatar.svg
+|-- bin/
+|   `-- virus.js
+|-- data/
+|   `-- .gitkeep
+|-- scripts/
+|   `-- install.sh
+|-- src/
+|   |-- audit.js
+|   |-- contract.js
+|   |-- dna.js
+|   |-- execution.js
+|   |-- immunity.js
+|   |-- index.js
+|   |-- marketplace.js
+|   |-- mutation.js
+|   |-- network.js
+|   |-- scoring.js
+|   |-- server.js
+|   |-- storage.js
+|   `-- version.js
+|-- test/
+|   `-- network.test.js
+|-- index.html
+|-- script.js
+|-- styles.css
+|-- package.json
+`-- README.md
 ```
 
 ## Installation
@@ -244,6 +251,20 @@ npm install
 ```
 
 There are currently no external runtime dependencies.
+
+One-command source install:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/mmenicah84/virus-protocol/main/scripts/install.sh | bash
+```
+
+Installer environment variables:
+
+| Variable | Description | Default |
+| --- | --- | --- |
+| `VIRUS_REPO` | Git repository URL used by the installer. | `https://github.com/mmenicah84/virus-protocol.git` |
+| `VIRUS_DIR` | Local install directory. | `virus-protocol` |
+| `VIRUS_SKIP_TESTS` | Set to `1` to skip the installer test run. | `0` |
 
 ## CLI Usage
 
@@ -271,6 +292,18 @@ List built-in strains:
 node ./bin/virus.js strains
 ```
 
+List stored task networks:
+
+```bash
+node ./bin/virus.js networks
+```
+
+Show one stored task network:
+
+```bash
+node ./bin/virus.js show vnet_12345678
+```
+
 Health check:
 
 ```bash
@@ -281,7 +314,7 @@ node ./bin/virus.js health
 
 | Option | Description | Default |
 | --- | --- | --- |
-| `--strain` | Built-in strain ID. Supports `research`, `code`, `audit`, `market`. | `research` |
+| `--strain` | Built-in or published strain ID. Built-ins are `research`, `code`, `audit`, `market`. | `research` |
 | `--mode` | Mutation mode. Supports `balanced`, `fast`, `precise`, `low_cost`. | `balanced` |
 | `--host` | Execution host. Supports `local`, `public`, `repository`, `cloud`. | `local` |
 | `--budget` | VRS budget for the run. | `40` |
@@ -315,7 +348,7 @@ Example response:
 {
   "ok": true,
   "service": "virus-runtime",
-  "version": "0.1.0"
+  "version": "1.0.1"
 }
 ```
 
@@ -363,9 +396,27 @@ Response includes:
 - `package`
 - `receipt`
 
+The created network is saved to local JSON storage.
+
+### `GET /networks`
+
+Returns stored task network summaries.
+
+```bash
+curl http://localhost:8787/networks
+```
+
+### `GET /networks/:id`
+
+Returns one stored task network by ID.
+
+```bash
+curl http://localhost:8787/networks/vnet_12345678
+```
+
 ### `POST /strains`
 
-Publishes a custom Agent DNA entry into the in-memory marketplace.
+Publishes a custom Agent DNA entry into the local marketplace store.
 
 ```bash
 curl -X POST http://localhost:8787/strains \
@@ -373,7 +424,7 @@ curl -X POST http://localhost:8787/strains \
   -d "{\"id\":\"ops\",\"name\":\"Ops-Strain\",\"tools\":[\"logs\"],\"permissions\":[\"read:logs\"],\"mutationRules\":[\"incident_split\"],\"immunityRules\":[\"permission_check\"],\"reward\":{\"success\":\"incident_resolved\",\"reuse\":\"runbook\"}}"
 ```
 
-The MVP marketplace is in-memory only. Published strains reset when the server restarts.
+Published strains are saved in local JSON storage and can be used by later runs.
 
 ## Configuration
 
@@ -382,11 +433,18 @@ The MVP marketplace is in-memory only. Published strains reset when the server r
 | Variable | Description | Default |
 | --- | --- | --- |
 | `PORT` | Local HTTP API port. | `8787` |
+| `VIRUS_DATA_DIR` | Local JSON storage directory. | `data` |
 
 Example:
 
 ```bash
 PORT=9000 npm start
+```
+
+Run with an isolated data directory:
+
+```bash
+VIRUS_DATA_DIR=.virus-data npm start
 ```
 
 ### Runtime Defaults
@@ -465,7 +523,7 @@ This model is intentionally simple so it can be audited, replaced, or tuned late
 
 ## Marketplace Boundary
 
-The MVP marketplace is an in-memory registry.
+The MVP marketplace is a local registry backed by JSON storage for custom strains.
 
 It supports:
 
@@ -474,10 +532,11 @@ It supports:
 - Publishing valid Agent DNA.
 - Rejecting duplicate IDs.
 - Rejecting invalid DNA.
+- Reusing published custom strains across restarts.
 
 Future versions should add:
 
-- Persistent storage.
+- Hosted marketplace storage.
 - Creator identity.
 - Versioning.
 - Usage metrics.
@@ -501,6 +560,7 @@ Current test coverage checks:
 - Invalid input rejection.
 - Budget warning behavior.
 - Marketplace publishing boundaries.
+- Local JSON persistence for custom strains and task networks.
 
 ## Project Website
 
@@ -523,7 +583,8 @@ Timeline: May 2026
 - Local HTTP API.
 - Deterministic execution simulation.
 - Audit trails.
-- In-memory marketplace.
+- Local JSON persistence.
+- Source installer script.
 
 ### Phase 2: Real Agent Execution
 
@@ -533,7 +594,7 @@ Timeline: June 2026
 - Tool adapters.
 - Streaming logs.
 - Host permissions.
-- Persistent task records.
+- Hosted task records.
 
 ### Phase 3: Developer Marketplace
 
@@ -575,11 +636,11 @@ No. The MVP does not execute real shell commands from Agent DNA. It simulates ex
 
 ### Can custom strains be published?
 
-Yes, through the in-memory marketplace boundary. Custom DNA must include all required fields and use a unique ID.
+Yes, through the marketplace boundary. Custom DNA must include all required fields and use a unique ID.
 
 ### Is the marketplace persistent?
 
-No. The current marketplace resets when the server restarts.
+Yes for the MVP scope. Custom strains and task networks are stored as local JSON files under `data/` or `VIRUS_DATA_DIR`.
 
 ### Can the scoring model be changed?
 

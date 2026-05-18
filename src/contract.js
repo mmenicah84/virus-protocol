@@ -1,6 +1,6 @@
 const allowedHosts = new Set(["local", "public", "repository", "cloud"]);
-const allowedStrains = new Set(["research", "code", "audit", "market"]);
 const allowedModes = new Set(["balanced", "fast", "precise", "low_cost", "low-cost"]);
+const strainPattern = /^[a-z][a-z0-9_-]{1,48}$/;
 
 export function normalizeRunInput(input = {}) {
   const goal = normalizeGoal(input.goal);
@@ -66,8 +66,8 @@ function normalizeChoice(value, label, allowed) {
 function normalizeStrain(value) {
   const normalized = String(value).trim().toLowerCase().replace("-strain", "");
 
-  if (!allowedStrains.has(normalized)) {
-    throw new Error(`Unsupported strain: ${value}`);
+  if (!strainPattern.test(normalized)) {
+    throw new Error(`Invalid strain id: ${value}`);
   }
 
   return normalized;

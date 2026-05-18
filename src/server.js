@@ -1,32 +1,36 @@
 import http from "node:http";
 import { pathToFileURL } from "node:url";
-import { createMarketplace, createTaskNetwork, listStrains } from "./index.js";
+import { createFileStorage, createMarketplace, createTaskNetwork, listStrains, runtimeVersion } from "./index.js";
 
-const marketplace = createMarketplace();
 const port = Number(process.env.PORT ?? 8787);
 
-export function createVirusServer() {
+export function createVirusServer(options = {}) {
+  const storage = options.storage ?? createFileStorage();
+  const marketplace = createMarketplace({ storage });
+
   return http.createServer(async (request, response) => {
     try {
+      const url = new URL(request.url, "http://localhost");
+
       if (request.method === "OPTIONS") {
         return sendJson(response, 204, {});
       }
 
-      if (request.method === "GET" && request.url === "/health") {
+      if (request.method === "GET" && url.pathname === "/health") {
         return sendJson(response, 200, {
           ok: true,
           service: "virus-runtime",
-          version: "0.1.0",
+          version: runtimeVersion,
         });
       }
 
-      if (request.method === "GET" && request.url === "/strains") {
+      if (request.method === "GET" && url.pathname === "/strains") {
         return sendJson(response, 200, {
           strains: marketplace.list(),
         });
       }
 
-      if (request.method === "POST" && request.url === "/strains") {
+      if (request.method === "POST" && url.pathname === "/strains") {
         const body = await readJson(request);
         const strain = marketplace.publish(body);
         return sendJson(response, 201, {
@@ -34,16 +38,39 @@ export function createVirusServer() {
         });
       }
 
-      if (request.method === "POST" && request.url === "/run") {
-        const body = await readJson(request);
-        const network = createTaskNetwork(body);
+      if (request.method === "GET" && url.pathname === "/networks") {
+        return sendJson(response, 200, {
+          networks: storage.listNetworks().map(summarizeStoredNetwork),
+        });
+      }
+
+      if (request.method === "GET" && url.pathname.startsWith("/networks/")) {
+        const id = decodeURIComponent(url.pathname.replace("/networks/", ""));
+        const network = storage.findNetwork(id);
+
+        if (!network) {
+          return sendJson(response, 404, {
+            error: "network_not_found",
+          });
+        }
+
         return sendJson(response, 200, network);
       }
 
-      if (request.method === "GET" && request.url === "/") {
+      if (request.method === "POST" && url.pathname === "/run") {
+        const body = await readJson(request);
+        const network = createTaskNetwork({
+          ...body,
+          resolveStrain: (id) => marketplace.find(id),
+        });
+        storage.saveNetwork(network);
+        return sendJson(response, 200, network);
+      }
+
+      if (request.method === "GET" && url.pathname === "/") {
         return sendJson(response, 200, {
           name: "VIRUS Runtime MVP",
-          endpoints: ["GET /health", "GET /strains", "POST /strains", "POST /run"],
+          endpoints: ["GET /health", "GET /strains", "POST /strains", "GET /networks", "GET /networks/:id", "POST /run"],
           strains: listStrains().map((strain) => strain.id),
         });
       }
@@ -58,6 +85,21 @@ export function createVirusServer() {
       });
     }
   });
+}
+
+function summarizeStoredNetwork(network) {
+  return {
+    id: network.id,
+    createdAt: network.createdAt,
+    goal: network.goal,
+    strain: network.strain.id,
+    mode: network.input.mode,
+    host: network.host,
+    immuneStatus: network.immuneReview.status,
+    selectedStrategy: network.summary.selectedStrategy,
+    estimatedCostVrs: network.summary.estimatedCostVrs,
+    marketplaceReady: network.package.marketplaceReady,
+  };
 }
 
 function sendJson(response, statusCode, payload) {
@@ -95,7 +137,7 @@ function readJson(request) {
   });
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   createVirusServer().listen(port, () => {
     console.log(`VIRUS Runtime listening on http://localhost:${port}`);
   });

@@ -1,7 +1,9 @@
 import { listStrains, validateDNA } from "./dna.js";
+import { createMemoryStorage } from "./storage.js";
 
-export function createMarketplace() {
-  const strains = listStrains().map((strain, index) => ({
+export function createMarketplace(options = {}) {
+  const storage = options.storage ?? createMemoryStorage();
+  const builtinStrains = listStrains().map((strain, index) => ({
     ...strain,
     rank: index + 1,
     calls: 1200 - index * 137,
@@ -11,11 +13,11 @@ export function createMarketplace() {
 
   return {
     list() {
-      return strains.map((strain) => structuredClone(strain));
+      return listAllStrains({ builtinStrains, storage });
     },
 
     find(id) {
-      return structuredClone(strains.find((strain) => strain.id === id));
+      return structuredClone(listAllStrains({ builtinStrains, storage }).find((strain) => strain.id === id));
     },
 
     publish(dna) {
@@ -25,20 +27,27 @@ export function createMarketplace() {
         throw new Error(`Cannot publish invalid DNA. Missing: ${validation.missing.join(", ")}`);
       }
 
-      if (strains.some((strain) => strain.id === dna.id)) {
+      if (listAllStrains({ builtinStrains, storage }).some((strain) => strain.id === dna.id)) {
         throw new Error(`Strain already exists: ${dna.id}`);
       }
 
       const entry = {
         ...dna,
-        rank: strains.length + 1,
+        rank: listAllStrains({ builtinStrains, storage }).length + 1,
         calls: 0,
         successRate: 0,
         creatorFeeBps: dna.creatorFeeBps ?? 250,
       };
 
-      strains.push(entry);
+      storage.saveStrain(entry);
       return structuredClone(entry);
     },
   };
+}
+
+function listAllStrains({ builtinStrains, storage }) {
+  return [...builtinStrains, ...storage.listStrains()].map((strain, index) => ({
+    ...structuredClone(strain),
+    rank: index + 1,
+  }));
 }
