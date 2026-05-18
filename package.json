@@ -1,0 +1,29 @@
+{
+  "name": "virus-protocol-mvp",
+  "version": "0.1.0",
+  "description": "MVP runtime for VIRUS, a self-replicating AI agent protocol.",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mmenicah84/virus-protocol.git"
+  },
+  "bin": {
+    "virus": "./bin/virus.js"
+  },
+  "scripts": {
+    "demo": "node ./bin/virus.js run \"Analyze an AI agent project and produce a market entry plan\"",
+    "start": "node ./src/server.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "ai-agent",
+    "agent-runtime",
+    "multi-agent",
+    "protocol",
+    "virus"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  }
+}

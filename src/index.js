@@ -1,0 +1,9 @@
+export { getMutationMode, getStrain, listStrains, mutationModes, strainLibrary, validateDNA } from "./dna.js";
+export { createVariants } from "./mutation.js";
+export { runImmuneReview } from "./immunity.js";
+export { scoreVariants, summarizeNetwork } from "./scoring.js";
+export { createTaskNetwork } from "./network.js";
+export { createMarketplace } from "./marketplace.js";
+export { createRunReceipt, normalizeRunInput } from "./contract.js";
+export { executeVariants } from "./execution.js";
+export { createAuditTrail } from "./audit.js";
