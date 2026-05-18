@@ -81,7 +81,7 @@ function normalizeBudget(value) {
   }
 
   if (budget > 10000) {
-    throw new Error("Run input budget is too high for the MVP runtime.");
+    throw new Error("Run input budget is too high for the local runtime.");
   }
 
   return Number(budget.toFixed(2));

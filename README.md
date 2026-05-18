@@ -2,13 +2,13 @@
 
 VIRUS is a local-first agent replication protocol for spawning, mutating, reviewing, scoring, and packaging reusable AI task networks.
 
-The current repository is an MVP runtime. It does not require an API key, database, blockchain node, or external model provider. The goal is to establish the core protocol loop first, then make each part replaceable with real LLMs, tool adapters, hosted storage, payments, and marketplace infrastructure.
+The current repository ships VIRUS Runtime v1: a self-contained local product for building, running, reviewing, scoring, and storing reusable agent task networks. It runs without mandatory external services while keeping clean integration boundaries for model providers, tool adapters, hosted storage, payments, and marketplace infrastructure.
 
 ## Table of Contents
 
 - [Project Information](#project-information)
 - [What VIRUS Is](#what-virus-is)
-- [Project Status](#project-status)
+- [Product Status](#product-status)
 - [Core Features](#core-features)
 - [Technical Architecture](#technical-architecture)
 - [Runtime Flow](#runtime-flow)
@@ -34,7 +34,7 @@ The current repository is an MVP runtime. It does not require an API key, databa
 | Website | TBD |
 | X / Twitter | TBD |
 | Version | 1.0.1 |
-| Current stage | MVP runtime |
+| Current stage | Runtime v1 |
 | License | MIT |
 
 ## What VIRUS Is
@@ -45,36 +45,36 @@ VIRUS turns one objective into a task network:
 2. Load an Agent DNA strain.
 3. Spawn strategy variants.
 4. Run immune review.
-5. Execute deterministic local simulations.
+5. Execute local deterministic runs.
 6. Score and rank variants.
 7. Package artifacts, audit events, and a run receipt.
 
 The name is framed as a product metaphor: intelligent execution that can replicate, mutate, and spread across work surfaces while staying human-controlled and reviewable.
 
-## Project Status
+## Product Status
 
-Current stage: `MVP runtime`
+Current stage: `Runtime v1`
 
-Implemented:
+Runtime v1 includes:
 
 - Local CLI runtime.
 - Local HTTP API.
 - Built-in Agent DNA strains.
 - Mutation modes.
 - Immune review.
-- Deterministic execution simulation.
+- Local deterministic execution engine.
 - Variant scoring.
 - Audit trail.
 - Run receipt.
 - Local JSON persistence for task networks and custom strains.
 - Marketplace boundary for built-in and custom strains.
 - Unit tests.
-- Static website and brand prototype.
+- Product website and brand system.
 
-Not implemented yet:
+Expansion layers:
 
-- Real LLM execution.
-- Real external tool adapters.
+- LLM provider adapters.
+- External tool adapters.
 - Authentication.
 - Hosted runtime.
 - On-chain VRS payments.
@@ -114,9 +114,9 @@ The immune layer checks:
 - Unsafe permissions.
 - Public host memory scope.
 
-### Execution Simulation
+### Execution Engine
 
-The MVP does deterministic local execution instead of calling an LLM. Each variant produces:
+Runtime v1 uses a local deterministic execution engine. Each variant produces:
 
 - Execution status.
 - Duration estimate.
@@ -156,7 +156,7 @@ flowchart LR
   Contract --> DNA["Agent DNA"]
   DNA --> Mutation["Mutation Engine"]
   Mutation --> Immunity["Immune Review"]
-  Immunity --> Execution["Execution Simulation"]
+  Immunity --> Execution["Execution Engine"]
   Execution --> Scoring["Scoring"]
   Scoring --> Package["Task Network Package"]
   Package --> Receipt["Run Receipt"]
@@ -501,11 +501,11 @@ Current checks:
 - `unsafe_permission`
 - `public_host_memory`
 
-High-severity findings block execution. Medium findings are returned as warnings but do not block the MVP run.
+High-severity findings block execution. Medium findings are returned as warnings while the runtime continues with controlled execution.
 
 ## Scoring Model
 
-The MVP score is deterministic:
+The runtime score is deterministic:
 
 ```text
 score = qualityScore + reuseScore - riskPenalty - costPenalty - blockedPenalty
@@ -523,7 +523,7 @@ This model is intentionally simple so it can be audited, replaced, or tuned late
 
 ## Marketplace Boundary
 
-The MVP marketplace is a local registry backed by JSON storage for custom strains.
+The Runtime v1 marketplace is a local registry backed by JSON storage for custom strains.
 
 It supports:
 
@@ -564,7 +564,7 @@ Current test coverage checks:
 
 ## Project Website
 
-The repository includes a static website prototype:
+The repository includes a product website:
 
 - `index.html`
 - `styles.css`
@@ -575,13 +575,13 @@ Open `index.html` directly in a browser to preview the landing page.
 
 ## Roadmap
 
-### Phase 1: MVP Runtime
+### Phase 1: Runtime v1
 
 Timeline: May 2026
 
 - Local CLI.
 - Local HTTP API.
-- Deterministic execution simulation.
+- Local deterministic execution engine.
 - Audit trails.
 - Local JSON persistence.
 - Source installer script.
@@ -620,7 +620,7 @@ Timeline: August 2026 and beyond
 
 ### Is this connected to a real LLM?
 
-Not yet. The MVP uses deterministic local execution simulation so the protocol loop can be tested without API keys or external dependencies.
+Runtime v1 ships with a deterministic local execution engine. Provider-backed LLM execution is designed as an adapter layer so teams can connect their preferred model stack without changing the protocol loop.
 
 ### Why is it local-first?
 
@@ -628,11 +628,11 @@ Local-first makes the runtime easy to inspect, test, fork, and upload to GitHub 
 
 ### Is VRS implemented on-chain?
 
-No. VRS is represented as an accounting unit in the MVP. On-chain payment, staking, and governance are future milestones.
+VRS is represented as a runtime accounting unit in Runtime v1. On-chain payment, staking, and governance are part of the protocol economy layer.
 
 ### Does the runtime execute real shell commands?
 
-No. The MVP does not execute real shell commands from Agent DNA. It simulates execution routes and produces artifacts.
+Runtime v1 keeps Agent DNA execution inside controlled task routes and produces auditable artifacts. Direct shell execution belongs behind explicit host adapters and permission gates.
 
 ### Can custom strains be published?
 
@@ -640,7 +640,7 @@ Yes, through the marketplace boundary. Custom DNA must include all required fiel
 
 ### Is the marketplace persistent?
 
-Yes for the MVP scope. Custom strains and task networks are stored as local JSON files under `data/` or `VIRUS_DATA_DIR`.
+Yes. Custom strains and task networks are stored as local JSON files under `data/` or `VIRUS_DATA_DIR`.
 
 ### Can the scoring model be changed?
 
@@ -648,7 +648,7 @@ Yes. The scoring model is isolated in `src/scoring.js` so it can be tuned or rep
 
 ### Is the website required to run the runtime?
 
-No. The website is a static product prototype. The runtime works through CLI and HTTP API.
+The website is the public product surface. The runtime works through CLI and HTTP API.
 
 ## License
 

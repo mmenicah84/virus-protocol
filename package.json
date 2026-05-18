@@ -1,7 +1,7 @@
 {
-  "name": "virus-protocol-mvp",
+  "name": "virus-protocol",
   "version": "1.0.1",
-  "description": "MVP runtime for VIRUS, a self-replicating AI agent protocol.",
+  "description": "Runtime v1 for VIRUS, a self-replicating AI agent protocol.",
   "type": "module",
   "repository": {
     "type": "git",

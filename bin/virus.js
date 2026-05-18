@@ -14,7 +14,7 @@ try {
   if (command === "health") {
     printJson({
       ok: true,
-      runtime: "virus-mvp",
+      runtime: "virus-runtime",
       version: runtimeVersion,
     });
     process.exit(0);
@@ -140,7 +140,7 @@ function printJson(payload) {
 }
 
 function printHelp() {
-  console.log(`VIRUS Runtime MVP
+  console.log(`VIRUS Runtime v1
 
 Usage:
   virus run "Analyze a competitor" --strain research --mode balanced

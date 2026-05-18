@@ -69,7 +69,7 @@ export function createVirusServer(options = {}) {
 
       if (request.method === "GET" && url.pathname === "/") {
         return sendJson(response, 200, {
-          name: "VIRUS Runtime MVP",
+          name: "VIRUS Runtime v1",
           endpoints: ["GET /health", "GET /strains", "POST /strains", "GET /networks", "GET /networks/:id", "POST /run"],
           strains: listStrains().map((strain) => strain.id),
         });
