@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "Runtime v1 for VIRUS, a self-replicating AI agent protocol.",
   "type": "module",
+  "homepage": "https://viruslabs.fun",
   "repository": {
     "type": "git",
     "url": "https://github.com/mmenicah84/virus-protocol.git"

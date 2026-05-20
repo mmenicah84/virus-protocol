@@ -35,7 +35,7 @@ The current repository ships VIRUS Runtime v1: a self-contained local product fo
 | --- | --- |
 | Project name | VIRUS Protocol |
 | Repository | [mmenicah84/virus-protocol](https://github.com/mmenicah84/virus-protocol.git) |
-| Website | TBD |
+| Website | [viruslabs.fun](https://viruslabs.fun) |
 | X / Twitter | [@VirusProtocolHQ](https://x.com/VirusProtocolHQ) |
 | Version | 1.0.1 |
 | Current stage | Runtime v1 |
