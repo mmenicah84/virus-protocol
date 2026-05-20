@@ -16,6 +16,15 @@ const registerStrainButton = document.querySelector(".register-strain");
 const heroRuntimeCommand = document.querySelector("#hero-runtime-command");
 const heroRuntimeTabs = document.querySelectorAll("[data-runtime-command]");
 const heroRuntimeCopy = document.querySelector(".runtime-copy");
+const previewStatus = document.querySelector("#preview-status");
+const previewId = document.querySelector("#preview-id");
+const previewMode = document.querySelector("#preview-mode");
+const previewCost = document.querySelector("#preview-cost");
+const previewReceiptId = document.querySelector("#preview-receipt-id");
+const previewStep1 = document.querySelector("#preview-step-1");
+const previewStep2 = document.querySelector("#preview-step-2");
+const previewStep3 = document.querySelector("#preview-step-3");
+const previewReceipt = document.querySelector("#preview-receipt");
 
 const deployCommandSets = {
   unix: [
@@ -118,6 +127,54 @@ function applyMarketFilter(filter) {
   }
 }
 
+function createPreviewSeed(value) {
+  let hash = 0;
+
+  for (let index = 0; index < value.length; index += 1) {
+    hash = (hash << 5) - hash + value.charCodeAt(index);
+    hash |= 0;
+  }
+
+  return Math.abs(hash).toString(16).padStart(8, "0").slice(0, 8);
+}
+
+function estimatePreviewCost(goal, mode) {
+  const modeBase = {
+    "Balanced Mutation": 38,
+    "Fast Mutation": 24,
+    "Low Cost Mutation": 18,
+    "High Precision Mutation": 54,
+  };
+  const lengthCost = Math.min(16, Math.ceil(goal.length / 18));
+
+  return (modeBase[mode] ?? 38) + lengthCost;
+}
+
+function updateLabPreview(goal, mode) {
+  const seed = createPreviewSeed(`${goal}:${mode}:${activeStrain}`);
+  const cost = estimatePreviewCost(goal, mode);
+  const strainName = activeStrain.replace("-Strain", "");
+  const goalSummary = goal.length > 72 ? `${goal.slice(0, 72)}...` : goal;
+  const strategy =
+    mode === "Fast Mutation"
+      ? "fast-route"
+      : mode === "Low Cost Mutation"
+        ? "budget-route"
+        : mode === "High Precision Mutation"
+          ? "precision-route"
+          : "balanced-route";
+
+  previewStatus.textContent = "Reviewed";
+  previewId.textContent = `vnet_${seed}`;
+  previewMode.textContent = mode;
+  previewCost.textContent = `${cost} VRS`;
+  previewReceiptId.textContent = `rcpt_${seed.slice(0, 6)}`;
+  previewStep1.textContent = `${strainName} DNA normalized the objective: ${goalSummary}`;
+  previewStep2.textContent = `Immune review passed with ${strategy}, budget guard, and permission scope.`;
+  previewStep3.textContent = `Reusable network package prepared with run receipt rcpt_${seed.slice(0, 6)}.`;
+  previewReceipt.textContent = `receipt=rcpt_${seed.slice(0, 6)} | network=vnet_${seed} | strain=${strainName.toLowerCase()} | mode=${strategy} | cost=${cost} VRS | status=reviewed`;
+}
+
 strainRows.forEach((row) => {
   row.addEventListener("click", () => {
     setActiveStrain(row.dataset.strain);
@@ -160,6 +217,7 @@ form.addEventListener("submit", (event) => {
   }
 
   result.textContent = `Task network generated: ${activeStrain} will replicate 4 variants in ${mode} mode and enter immune review.`;
+  updateLabPreview(goal, mode);
   if (opsStatus) {
     opsStatus.textContent = "Running";
   }

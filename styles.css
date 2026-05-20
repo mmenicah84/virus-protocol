@@ -1353,10 +1353,16 @@ h2 {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(480px, 1fr);
   gap: 44px;
+  align-items: start;
 }
 
 .launch h2 {
   margin-bottom: 20px;
+}
+
+.launch-surface {
+  display: grid;
+  gap: 14px;
 }
 
 .lab-form {
@@ -1417,6 +1423,113 @@ h2 {
   border-radius: 8px;
   color: var(--muted);
   background: rgba(16, 19, 17, 0.04);
+}
+
+.lab-preview {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.86);
+  border-radius: 8px;
+  background: rgba(255, 253, 246, 0.68);
+  box-shadow: 0 18px 54px rgba(39, 45, 38, 0.09);
+  backdrop-filter: blur(18px);
+}
+
+.preview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.preview-head span,
+.preview-grid span,
+.preview-receipt span {
+  color: #6f8c18;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.preview-head strong {
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: #4f6811;
+  background: var(--green-2);
+  font-size: 12px;
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.preview-grid div {
+  min-height: 78px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.54);
+}
+
+.preview-grid strong {
+  display: block;
+  margin-top: 10px;
+  overflow-wrap: anywhere;
+  color: var(--ink);
+  font-size: 15px;
+}
+
+.preview-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.preview-steps article {
+  min-height: 124px;
+  padding: 14px;
+  border: 1px solid rgba(16, 19, 17, 0.09);
+  border-radius: 8px;
+  background: rgba(16, 19, 17, 0.035);
+}
+
+.preview-steps span {
+  color: #6f8c18;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.preview-steps strong {
+  display: block;
+  margin-top: 8px;
+  color: var(--ink);
+}
+
+.preview-steps p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.preview-receipt {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.56);
+}
+
+.preview-receipt code {
+  overflow-wrap: anywhere;
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .footer {
@@ -1577,6 +1690,8 @@ h2 {
   .host-grid,
   .loop-grid,
   .token-grid,
+  .preview-grid,
+  .preview-steps,
   .form-row {
     grid-template-columns: 1fr;
   }

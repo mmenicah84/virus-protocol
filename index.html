@@ -487,26 +487,76 @@
               outputs.
             </p>
           </div>
-          <form class="lab-form">
-            <label for="goal">Task objective</label>
-            <textarea
-              id="goal"
-              rows="4"
-              placeholder="Example: Analyze an AI agent project and produce a market entry plan"
-            ></textarea>
-            <div class="form-row">
-              <select id="mode" aria-label="Mutation mode">
-                <option>Balanced Mutation</option>
-                <option>Fast Mutation</option>
-                <option>Low Cost Mutation</option>
-                <option>High Precision Mutation</option>
-              </select>
-              <button type="submit">Generate network</button>
-            </div>
-            <p class="lab-result" role="status" aria-live="polite">
-              Active strain: Research-Strain. Ready for task input.
-            </p>
-          </form>
+          <div class="launch-surface">
+            <form class="lab-form">
+              <label for="goal">Task objective</label>
+              <textarea
+                id="goal"
+                rows="4"
+                placeholder="Example: Analyze an AI agent project and produce a market entry plan"
+              ></textarea>
+              <div class="form-row">
+                <select id="mode" aria-label="Mutation mode">
+                  <option>Balanced Mutation</option>
+                  <option>Fast Mutation</option>
+                  <option>Low Cost Mutation</option>
+                  <option>High Precision Mutation</option>
+                </select>
+                <button type="submit">Generate network</button>
+              </div>
+              <p class="lab-result" role="status" aria-live="polite">
+                Active strain: Research-Strain. Ready for task input.
+              </p>
+            </form>
+
+            <aside class="lab-preview" aria-live="polite" aria-label="Runtime preview">
+              <div class="preview-head">
+                <span>Runtime Preview</span>
+                <strong id="preview-status">Draft</strong>
+              </div>
+              <div class="preview-grid">
+                <div>
+                  <span>Task ID</span>
+                  <strong id="preview-id">vnet_preview</strong>
+                </div>
+                <div>
+                  <span>Mode</span>
+                  <strong id="preview-mode">Balanced Mutation</strong>
+                </div>
+                <div>
+                  <span>Cost</span>
+                  <strong id="preview-cost">38 VRS</strong>
+                </div>
+                <div>
+                  <span>Receipt</span>
+                  <strong id="preview-receipt-id">rcpt_preview</strong>
+                </div>
+              </div>
+              <div class="preview-steps">
+                <article>
+                  <span>01</span>
+                  <strong>Normalize</strong>
+                  <p id="preview-step-1">Ready to parse the objective into a run.</p>
+                </article>
+                <article>
+                  <span>02</span>
+                  <strong>Review</strong>
+                  <p id="preview-step-2">Immune review will score permissions, risk, and budget.</p>
+                </article>
+                <article>
+                  <span>03</span>
+                  <strong>Package</strong>
+                  <p id="preview-step-3">Receipt and network summary will be attached after generation.</p>
+                </article>
+              </div>
+              <div class="preview-receipt">
+                <span>Run receipt</span>
+                <code id="preview-receipt">
+                  Pending run receipt. Enter a goal to generate the next preview.
+                </code>
+              </div>
+            </aside>
+          </div>
         </div>
       </section>
     </main>
