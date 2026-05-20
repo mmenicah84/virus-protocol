@@ -13,6 +13,9 @@ const deployBodyCopy = document.querySelector(".deploy-body p");
 const copyCommand = document.querySelector(".copy-command");
 const marketTabs = document.querySelectorAll("[data-filter]");
 const registerStrainButton = document.querySelector(".register-strain");
+const heroRuntimeCommand = document.querySelector("#hero-runtime-command");
+const heroRuntimeTabs = document.querySelectorAll("[data-runtime-command]");
+const heroRuntimeCopy = document.querySelector(".runtime-copy");
 
 const deployCommandSets = {
   unix: [
@@ -28,6 +31,12 @@ const deployCommandSets = {
     'node ./bin/virus.js run "Analyze an AI agent project" --strain research --mode balanced',
   ],
 };
+
+const heroRuntimeCommands = [
+  'node ./bin/virus.js run "Analyze an AI agent project" --strain research --mode balanced',
+  "npm start",
+  "npm test",
+];
 
 const dnaMap = {
   "Research-Strain": "Research-Strain: search, verify, summarize, cite, score.",
@@ -192,6 +201,40 @@ if (copyCommand) {
   });
 }
 
+function setHeroRuntimeCommand(index) {
+  const command = heroRuntimeCommands[index] ?? heroRuntimeCommands[0];
+  heroRuntimeCommand.textContent = command;
+
+  heroRuntimeTabs.forEach((tab) => {
+    const isActive = Number(tab.dataset.runtimeCommand) === index;
+    tab.classList.toggle("active", isActive);
+    tab.setAttribute("aria-pressed", String(isActive));
+  });
+
+  if (heroRuntimeCopy) {
+    heroRuntimeCopy.textContent = "Copy";
+  }
+}
+
+heroRuntimeTabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    setHeroRuntimeCommand(Number(tab.dataset.runtimeCommand));
+  });
+});
+
+if (heroRuntimeCopy) {
+  heroRuntimeCopy.addEventListener("click", async () => {
+    const command = heroRuntimeCommand.textContent;
+
+    try {
+      await navigator.clipboard.writeText(command);
+      heroRuntimeCopy.textContent = "Copied";
+    } catch {
+      heroRuntimeCopy.textContent = "Select";
+    }
+  });
+}
+
 setActiveStrain(activeStrain);
 deployOsTabs.forEach((tab) => {
   const isActive = tab.dataset.os === activeDeployOs;
@@ -200,3 +243,4 @@ deployOsTabs.forEach((tab) => {
 });
 setActiveDeployTab(activeDeployCommandIndex);
 applyMarketFilter(activeFilter);
+setHeroRuntimeCommand(0);

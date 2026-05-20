@@ -287,8 +287,9 @@ nav a:hover {
 
 .runtime-command {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 9px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 9px 12px;
+  align-items: start;
   margin-top: 18px;
   padding: 16px;
   border: 1px solid rgba(16, 19, 17, 0.1);
@@ -312,6 +313,22 @@ nav a:hover {
   line-height: 1.55;
 }
 
+.runtime-copy {
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.68);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.runtime-copy:hover {
+  background: var(--paper);
+}
+
 .runtime-meta {
   display: flex;
   flex-wrap: wrap;
@@ -319,14 +336,22 @@ nav a:hover {
   margin-top: 14px;
 }
 
-.runtime-meta span {
+.runtime-meta button {
   padding: 7px 9px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.54);
   color: var(--muted);
+  cursor: pointer;
   font-size: 12px;
   font-weight: 850;
+}
+
+.runtime-meta button:hover,
+.runtime-meta button.active {
+  color: var(--ink);
+  border-color: rgba(183, 255, 42, 0.7);
+  background: var(--green-2);
 }
 
 .hero-runtime a {
@@ -340,6 +365,10 @@ nav a:hover {
   background: var(--green);
   font-size: 13px;
   font-weight: 900;
+}
+
+.hero-runtime a:hover {
+  background: var(--green-2);
 }
 
 .hero-content {
