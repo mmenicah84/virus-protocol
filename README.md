@@ -1,8 +1,12 @@
-# VIRUS Protocol
+<p align="center">
+  <img src="./assets/virus-avatar.svg" alt="VIRUS logo" width="128" />
+</p>
+
+<h1 align="center">VIRUS Protocol</h1>
 
 VIRUS is a local-first agent replication protocol for spawning, mutating, reviewing, scoring, and packaging reusable AI task networks.
 
-The current repository ships VIRUS Runtime v1: a self-contained local product for building, running, reviewing, scoring, and storing reusable agent task networks. It runs without mandatory external services while keeping clean integration boundaries for model providers, tool adapters, hosted storage, payments, and marketplace infrastructure.
+The current repository ships VIRUS Runtime v1: a self-contained local product for building, running, reviewing, scoring, and storing reusable agent task networks. It runs without mandatory external services while keeping clean integration boundaries for model providers, tool adapters, hosted storage, metering, and publishing infrastructure.
 
 ## Table of Contents
 
@@ -20,7 +24,7 @@ The current repository ships VIRUS Runtime v1: a self-contained local product fo
 - [Agent DNA](#agent-dna)
 - [Immune Review](#immune-review)
 - [Scoring Model](#scoring-model)
-- [Marketplace Boundary](#marketplace-boundary)
+- [Strain Registry Boundary](#strain-registry-boundary)
 - [Testing](#testing)
 - [Roadmap](#roadmap)
 - [FAQ](#faq)
@@ -49,7 +53,7 @@ VIRUS turns one objective into a task network:
 6. Score and rank variants.
 7. Package artifacts, audit events, and a run receipt.
 
-The name is framed as a product metaphor: intelligent execution that can replicate, mutate, and spread across work surfaces while staying human-controlled and reviewable.
+The name is framed as a product metaphor: intelligent execution that can replicate, mutate, and operate across work surfaces while staying human-controlled and reviewable.
 
 ## Product Status
 
@@ -67,7 +71,7 @@ Runtime v1 includes:
 - Audit trail.
 - Run receipt.
 - Local JSON persistence for task networks and custom strains.
-- Marketplace boundary for built-in and custom strains.
+- Strain registry and publishing boundary for built-in and custom strains.
 - Unit tests.
 - Product website and brand system.
 
@@ -77,8 +81,7 @@ Expansion layers:
 - External tool adapters.
 - Authentication.
 - Hosted runtime.
-- On-chain VRS payments.
-- Production marketplace.
+- Optional publishing boundary.
 
 ## Core Features
 
@@ -160,7 +163,7 @@ flowchart LR
   Execution --> Scoring["Scoring"]
   Scoring --> Package["Task Network Package"]
   Package --> Receipt["Run Receipt"]
-  Package --> Marketplace["Marketplace Boundary"]
+  Package --> Registry["Strain Registry / Publishing Boundary"]
 ```
 
 ### Module Architecture
@@ -176,7 +179,7 @@ flowchart TB
   Runtime --> Execution["src/execution.js"]
   Runtime --> Scoring["src/scoring.js"]
   Runtime --> Audit["src/audit.js"]
-  API --> Marketplace["src/marketplace.js"]
+  API --> Registry["src/marketplace.js"]
 ```
 
 ## Runtime Flow
@@ -416,7 +419,7 @@ curl http://localhost:8787/networks/vnet_12345678
 
 ### `POST /strains`
 
-Publishes a custom Agent DNA entry into the local marketplace store.
+Publishes a custom Agent DNA entry into the local registry store.
 
 ```bash
 curl -X POST http://localhost:8787/strains \
@@ -521,9 +524,9 @@ Where:
 
 This model is intentionally simple so it can be audited, replaced, or tuned later.
 
-## Marketplace Boundary
+## Strain Registry Boundary
 
-The Runtime v1 marketplace is a local registry backed by JSON storage for custom strains.
+The Runtime v1 registry is a local store backed by JSON storage for custom strains.
 
 It supports:
 
@@ -536,12 +539,12 @@ It supports:
 
 Future versions should add:
 
-- Hosted marketplace storage.
+- Hosted registry storage.
 - Creator identity.
 - Versioning.
 - Usage metrics.
-- Revenue routing.
-- VRS staking and ranking.
+- Publishing metrics.
+- Optional routing and ranking.
 
 ## Testing
 
@@ -559,7 +562,7 @@ Current test coverage checks:
 - Runtime input normalization.
 - Invalid input rejection.
 - Budget warning behavior.
-- Marketplace publishing boundaries.
+- Strain registry publishing boundaries.
 - Local JSON persistence for custom strains and task networks.
 
 ## Project Website
@@ -596,7 +599,7 @@ Timeline: June 2026
 - Host permissions.
 - Hosted task records.
 
-### Phase 3: Developer Marketplace
+### Phase 3: Strain Publishing
 
 Timeline: July 2026
 
@@ -604,17 +607,16 @@ Timeline: July 2026
 - Versioned strain registry.
 - Creator profiles.
 - Usage analytics.
-- Marketplace scoring.
+- Publishing scoring.
 
-### Phase 4: VRS Protocol Economy
+### Phase 4: Hosted Runtime and Metering
 
 Timeline: August 2026 and beyond
 
-- VRS payments.
-- Creator rewards.
-- Staking-based ranking.
-- Governance parameters.
-- Ecosystem funding.
+- Hosted runtime.
+- Metering and receipts.
+- Routing boundaries.
+- Optional rewards layer.
 
 ## FAQ
 
@@ -626,9 +628,9 @@ Runtime v1 ships with a deterministic local execution engine. Provider-backed LL
 
 Local-first makes the runtime easy to inspect, test, fork, and upload to GitHub before adding hosted infrastructure.
 
-### Is VRS implemented on-chain?
+### How does VRS work in Runtime v1?
 
-VRS is represented as a runtime accounting unit in Runtime v1. On-chain payment, staking, and governance are part of the protocol economy layer.
+VRS is represented as a runtime accounting unit in Runtime v1. It is used for estimated cost, scoring, and run receipts inside the local runtime.
 
 ### Does the runtime execute real shell commands?
 
@@ -636,9 +638,9 @@ Runtime v1 keeps Agent DNA execution inside controlled task routes and produces 
 
 ### Can custom strains be published?
 
-Yes, through the marketplace boundary. Custom DNA must include all required fields and use a unique ID.
+Yes, through the strain registry boundary. Custom DNA must include all required fields and use a unique ID.
 
-### Is the marketplace persistent?
+### Is the registry persistent?
 
 Yes. Custom strains and task networks are stored as local JSON files under `data/` or `VIRUS_DATA_DIR`.
 

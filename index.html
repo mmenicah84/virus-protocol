@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VIRUS | Agent Replication Protocol</title>
+    <title>VIRUS | Runtime v1</title>
     <meta
       name="description"
-      content="VIRUS is an agent replication protocol for spawning, mutating, reviewing, and packaging reusable AI task networks."
+      content="VIRUS Runtime v1 is a local-first execution runtime for installing, running, reviewing, scoring, and packaging reusable task networks."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,13 +23,14 @@
         <span>VIRUS</span>
       </a>
       <nav aria-label="Main navigation">
-        <a href="#protocol">Protocol</a>
-        <a href="#deploy">Deploy</a>
-        <a href="#strains">Strains</a>
-        <a href="#hosts">Hosts</a>
-        <a href="#token">VRS</a>
-        <a href="#roadmap">Roadmap</a>
+        <a href="#protocol">Flow</a>
+        <a href="#deploy-details">Install</a>
+        <a href="#strains">Registry</a>
+        <a href="#hosts">Surfaces</a>
+        <a href="#token">Metering</a>
+        <a href="#roadmap">Expansion</a>
         <a href="#launch">Lab</a>
+        <a href="https://github.com/mmenicah84/virus-protocol.git" target="_blank" rel="noreferrer">GitHub</a>
       </nav>
       <a class="header-cta" href="#launch">Launch Lab</a>
     </header>
@@ -41,67 +42,38 @@
           <div class="signal s1"></div>
           <div class="signal s2"></div>
           <div class="signal s3"></div>
-          <div class="virus-map">
-            <span class="core">VRS</span>
-            <span class="agent a1">Research</span>
-            <span class="agent a2">Code</span>
-            <span class="agent a3">Audit</span>
-            <span class="agent a4">Market</span>
-            <span class="agent a5">Host</span>
-            <span class="wire w1"></span>
-            <span class="wire w2"></span>
-            <span class="wire w3"></span>
-            <span class="wire w4"></span>
-            <span class="wire w5"></span>
-          </div>
-          <div class="mission-dock">
-            <div class="dock-head">
-              <span>Live Infection</span>
-              <strong>Balanced</strong>
-            </div>
-            <div class="dock-task">Launch market research swarm</div>
-            <div class="dock-agents">
-              <span>Research</span>
-              <span>Audit</span>
-              <span>Market</span>
-            </div>
-            <div class="dock-meter">
-              <i></i>
-            </div>
-          </div>
         </div>
 
         <div class="hero-content">
-          <p class="kicker">AI Agent Replication Protocol</p>
-          <h1 id="hero-title">Turn one objective into a self-expanding agent network.</h1>
+          <p class="kicker">Local AI Runtime</p>
+          <h1 id="hero-title">Turn one objective into a reviewed, scored task network.</h1>
           <p class="hero-copy">
-            VIRUS splits a goal into reusable agent strains. They run in parallel, mutate into strategies,
-            pass immune review, and package the strongest result into a reusable task network.
+            VIRUS Runtime v1 ships with a CLI, install script, local API, built-in strains, and auditable run
+            receipts. It turns a goal into reusable task-network variants, then packages the selected result for
+            reuse.
           </p>
           <div class="hero-actions">
             <a class="btn primary" href="#launch">Generate task network</a>
             <a class="btn secondary" href="#protocol">Explore protocol</a>
           </div>
-
-          <div class="hero-deploy" id="deploy" aria-label="Quick Deploy">
-            <div class="hero-deploy-head">
-              <span>Quick Deploy</span>
-              <strong>Runtime reserved</strong>
-            </div>
-            <div class="hero-deploy-tabs" aria-label="Hero deploy options">
-              <button class="active" type="button" data-hero-command="curl -fsSL https://raw.githubusercontent.com/mmenicah84/virus-protocol/main/scripts/install.sh | bash">
-                One-liner
-              </button>
-              <button type="button" data-hero-command="git clone https://github.com/mmenicah84/virus-protocol.git">Source</button>
-              <button type="button" data-hero-command="npm install && npm start">Local API</button>
-            </div>
-            <div class="hero-command-line">
-              <span>$</span>
-              <code id="hero-deploy-command">curl -fsSL https://raw.githubusercontent.com/mmenicah84/virus-protocol/main/scripts/install.sh | bash</code>
-              <button type="button" class="hero-copy-command" aria-label="Copy hero deploy command">Copy</button>
-            </div>
-          </div>
         </div>
+
+        <aside class="hero-runtime" aria-label="Runtime quick deploy">
+          <div class="runtime-head">
+            <span>Runtime v1</span>
+            <strong>Live</strong>
+          </div>
+          <div class="runtime-command">
+            <span>$</span>
+            <code>git clone https://github.com/mmenicah84/virus-protocol.git</code>
+          </div>
+          <div class="runtime-meta">
+            <span>CLI</span>
+            <span>Local API</span>
+            <span>Tests</span>
+          </div>
+          <a href="#deploy-details">Open deploy guide</a>
+        </aside>
 
         <div class="hero-bottom" aria-label="Protocol primitives">
           <div>
@@ -123,28 +95,28 @@
       </section>
 
       <section class="ticker" aria-label="Keywords">
-        <span>VIRUS Protocol</span>
-        <span>Self-replicating Agents</span>
-        <span>VRS Utility</span>
-        <span>Human-controlled Execution</span>
-        <span>Agent Marketplace</span>
+        <span>Runtime v1</span>
+        <span>Local CLI</span>
+        <span>Run Receipts</span>
+        <span>Human-reviewed Execution</span>
+        <span>Built-in Strains</span>
       </section>
 
       <section class="deploy deploy-details" id="deploy-details" aria-labelledby="deploy-title">
         <div class="section-heading">
           <div>
-            <div class="section-label">Quick Deploy</div>
-            <h2 id="deploy-title">A reserved one-command entrypoint for the real runtime.</h2>
+            <div class="section-label">Runtime Install</div>
+            <h2 id="deploy-title">Install Runtime v1 from the official repository.</h2>
           </div>
           <p>
-            This section is reserved for the VIRUS Runtime installer. CLI, Docker, and source workflows are
-            already wired to the GitHub source installer so developers can clone, test, and run the local API.
+            The source installer clones the repo, installs dependencies, runs tests, and leaves you with the
+            local runtime, CLI, and API.
           </p>
         </div>
 
         <div class="deploy-console">
           <div class="deploy-window">
-            <div class="deploy-bar">
+          <div class="deploy-bar">
               <div class="traffic" aria-hidden="true">
                 <span></span>
                 <span></span>
@@ -159,8 +131,8 @@
                 <button type="button" data-command="node ./bin/virus.js run &quot;Analyze an AI agent project&quot; --strain research --mode balanced">CLI</button>
               </div>
               <div class="deploy-os" aria-label="Operating systems">
-                <span class="active">macOS & Linux</span>
-                <span>Windows</span>
+                <button class="active" type="button" data-os="unix">macOS & Linux</button>
+                <button type="button" data-os="windows">Windows</button>
               </div>
             </div>
             <div class="deploy-body">
@@ -173,10 +145,10 @@
             </div>
           </div>
           <div class="deploy-note">
-            <strong>Runtime installer ready</strong>
+            <strong>Runtime installer live</strong>
             <span>
-              The installer clones the GitHub repository, installs dependencies, runs tests, and prints the next
-              local runtime commands.
+              The installer clones mmenicah84/virus-protocol, installs dependencies, runs tests, and prints the
+              next local runtime commands.
             </span>
           </div>
         </div>
@@ -185,28 +157,27 @@
           <article>
             <span>Local-first</span>
             <strong>Run on your machine</strong>
-            <p>Start an Agent Host locally, connect models, tools, and project files, and debug safely.</p>
+            <p>Start the runtime locally, connect strains, and inspect receipts on your own machine.</p>
           </article>
           <article>
-            <span>Cloud-ready</span>
-            <strong>Deploy to runtime</strong>
-            <p>Reserve a hosted runtime path for API keys, queues, logs, task accounting, and billing.</p>
+            <span>Boundary-ready</span>
+            <strong>Extend safely</strong>
+            <p>External model, tool, and storage adapters stay behind explicit interfaces.</p>
           </article>
           <article>
-            <span>Marketplace</span>
-            <strong>Publish strain</strong>
-            <p>Publish reusable Agent DNA to the marketplace with calls, scores, and reward routing.</p>
+            <span>Reusable</span>
+            <strong>Save a strain</strong>
+            <p>Persist custom DNA, rerun it, and keep the same audit trail.</p>
           </article>
         </div>
       </section>
 
       <section class="protocol" id="protocol" aria-labelledby="protocol-title">
-        <div class="section-label">Protocol</div>
+        <div class="section-label">Runtime Flow</div>
         <div class="section-heading">
-          <h2 id="protocol-title">Turn complex work into reusable agent flows.</h2>
+          <h2 id="protocol-title">Turn one goal into a reviewed task network.</h2>
           <p>
-            Swarms focus on multi-agent collaboration. VIRUS focuses on how agents replicate, mutate,
-            pass review, and become marketplace-ready execution assets.
+            VIRUS focuses on the path from goal to DNA, variants, review, execution, score, and receipt.
           </p>
         </div>
 
@@ -214,12 +185,12 @@
           <article>
             <span>DNA</span>
             <h3>Define strain</h3>
-            <p>Package goals, tools, models, memory, permissions, and reward conditions into Agent DNA.</p>
+            <p>Encode goals, tools, memory, permissions, and reward shape into Agent DNA.</p>
           </article>
           <article>
             <span>HOST</span>
-            <h3>Connect host</h3>
-            <p>Attach repositories, knowledge bases, wallets, social channels, CRM, or business APIs.</p>
+            <h3>Attach surface</h3>
+            <p>Connect repositories, docs, or custom API surfaces behind explicit boundaries.</p>
           </article>
           <article>
             <span>SPAWN</span>
@@ -228,8 +199,8 @@
           </article>
           <article>
             <span>SCORE</span>
-            <h3>Package asset</h3>
-            <p>Allocate value by success rate, cost, reuse, and human review signals.</p>
+            <h3>Package receipt</h3>
+            <p>Allocate value by cost, reuse, and review signals, then return a run receipt.</p>
           </article>
         </div>
       </section>
@@ -238,10 +209,10 @@
         <div class="section-label">Control Plane</div>
         <div class="ops-layout">
           <div>
-            <h2 id="ops-title">Split one task into an observable, billable, reusable execution network.</h2>
+            <h2 id="ops-title">See each run as status, cost, risk, and output.</h2>
             <p>
-              The VIRUS control plane shows each strain's status, cost, risk, and output. It is not a black box;
-              it is an auditable agent production line that can be scored and called again.
+              The control plane shows each strain's status, cost, risk, and output. Every run leaves a receipt and
+              an audit trail.
             </p>
           </div>
 
@@ -290,44 +261,75 @@
         </div>
       </section>
 
+      <section class="receipt" id="receipt" aria-labelledby="receipt-title">
+        <div class="section-label">Runtime Proof</div>
+        <div class="section-heading">
+          <div>
+            <h2 id="receipt-title">Show the runtime, not just the pitch.</h2>
+          </div>
+          <p>
+            Each run leaves a receipt: command, strain, status, cost, and output artifact. That makes the
+            product easy to trust, debug, and share.
+          </p>
+        </div>
+
+        <div class="receipt-grid">
+          <article>
+            <span>Command</span>
+            <code>node ./bin/virus.js run "Analyze an AI agent project" --strain research --mode balanced</code>
+          </article>
+          <article>
+            <span>Status</span>
+            <strong>Immune review passed</strong>
+            <p>4 variants, 1 selected, 0 blocked.</p>
+          </article>
+          <article>
+            <span>Output</span>
+            <strong>task-network.json</strong>
+            <p>Reusable network, logs, and scoring receipt.</p>
+          </article>
+        </div>
+      </section>
+
       <section class="product" id="strains" aria-labelledby="strains-title">
         <div class="product-copy">
-          <div class="section-label">Strain Market</div>
-          <h2 id="strains-title">Make agents reusable, callable, and tradable as strains.</h2>
+          <div class="section-label">Strain Registry</div>
+          <h2 id="strains-title">Built-in strains you can run and extend.</h2>
           <p>
-            Strains can be called, combined, replicated, and published by developers. Ranking is based on task
-            infection, saved cost, reuse, and measurable contribution.
+            Research, Code, Audit, and Market ship with Runtime v1 as built-in strains. Each one encodes a
+            distinct execution pattern.
           </p>
         </div>
 
         <div class="market-shell">
           <div class="market-toolbar">
-            <span>Top Viral Strains</span>
-            <button type="button">Publish strain</button>
+            <span>Registry</span>
+            <button type="button" class="register-strain">Register strain</button>
           </div>
           <div class="market-tabs" aria-label="Market filters">
-            <span class="active">All</span>
-            <span>Research</span>
-            <span>Build</span>
-            <span>Growth</span>
+            <button class="active" type="button" data-filter="all">All</button>
+            <button type="button" data-filter="research">Research</button>
+            <button type="button" data-filter="build">Build</button>
+            <button type="button" data-filter="audit">Audit</button>
+            <button type="button" data-filter="growth">Growth</button>
           </div>
           <div class="strain-list">
-            <button class="strain-row active" data-strain="Research-Strain">
+            <button class="strain-row active" type="button" data-strain="Research-Strain" data-category="research">
               <span class="rank">01</span>
               <strong>Research-Strain <small>Due diligence swarm</small></strong>
               <em>97.4</em>
             </button>
-            <button class="strain-row" data-strain="Code-Strain">
+            <button class="strain-row" type="button" data-strain="Code-Strain" data-category="build">
               <span class="rank">02</span>
               <strong>Code-Strain <small>Build and test loop</small></strong>
               <em>92.8</em>
             </button>
-            <button class="strain-row" data-strain="Audit-Strain">
+            <button class="strain-row" type="button" data-strain="Audit-Strain" data-category="audit">
               <span class="rank">03</span>
               <strong>Audit-Strain <small>Risk and output review</small></strong>
               <em>95.1</em>
             </button>
-            <button class="strain-row" data-strain="Market-Strain">
+            <button class="strain-row" type="button" data-strain="Market-Strain" data-category="growth">
               <span class="rank">04</span>
               <strong>Market-Strain <small>Distribution engine</small></strong>
               <em>89.6</em>
@@ -343,22 +345,22 @@
       <section class="hosts" id="hosts" aria-labelledby="hosts-title">
         <div class="section-heading">
           <div>
-            <div class="section-label">Hosts</div>
-            <h2 id="hosts-title">Bring strains into real work surfaces.</h2>
+            <div class="section-label">Integration Surfaces</div>
+            <h2 id="hosts-title">Connect the runtime to the surfaces you actually use.</h2>
           </div>
           <p>
-            A Host is where VIRUS connects to the outside world. Repositories, knowledge bases, social channels,
-            wallets, and business systems can all become agent execution environments.
+            Repositories, docs, community channels, and private APIs can be treated as explicit integration
+            boundaries.
           </p>
         </div>
 
         <div class="host-grid">
-          <article><span>GH</span><strong>GitHub</strong><p>Code review, issue breakdown, and automated fixes.</p></article>
-          <article><span>NT</span><strong>Notion</strong><p>Knowledge search, document generation, and meeting capture.</p></article>
-          <article><span>TG</span><strong>Telegram</strong><p>Community support, announcements, and user feedback loops.</p></article>
-          <article><span>X</span><strong>Social</strong><p>Content loops, signal monitoring, and growth experiments.</p></article>
+          <article><span>GH</span><strong>GitHub</strong><p>Repository boundary, code review, and issue tracking.</p></article>
+          <article><span>NT</span><strong>Notion</strong><p>Docs boundary, knowledge search, and meeting capture.</p></article>
+          <article><span>TG</span><strong>Telegram</strong><p>Community boundary and support loops.</p></article>
+          <article><span>X</span><strong>Social</strong><p>Signal monitoring and distribution experiments.</p></article>
           <article><span>DB</span><strong>Data Room</strong><p>Project files, market data, and internal reports.</p></article>
-          <article><span>API</span><strong>Custom API</strong><p>Trading, CRM, payment, and proprietary tool adapters.</p></article>
+          <article><span>API</span><strong>Custom API</strong><p>Trading, CRM, payment, and private adapters.</p></article>
         </div>
       </section>
 
@@ -366,10 +368,9 @@
         <div class="dna-panel">
           <div class="dna-copy">
             <div class="section-label">Agent DNA</div>
-            <h2 id="dna-title">Every agent has forkable execution genes.</h2>
+            <h2 id="dna-title">Each agent carries a strict execution contract.</h2>
             <p>
-              DNA describes how a strain thinks, which tools it can call, when it replicates, and how it earns.
-              Developers can publish DNA, users can combine DNA, and markets can rank DNA by real performance.
+              DNA describes what a strain can do, how it mutates, and how the runtime scores it before packaging.
             </p>
           </div>
           <div class="dna-editor" aria-label="Agent DNA example">
@@ -387,16 +388,15 @@
           <span>VRS</span>
         </div>
         <div class="token-content">
-          <div class="section-label">Token</div>
-          <h2 id="token-title">VIRUS Protocol Token</h2>
+          <div class="section-label">Runtime Metering</div>
+          <h2 id="token-title">VRS is the internal unit used to meter runs and compare output.</h2>
           <p>
-            VRS is the value layer for the VIRUS network. It can pay for agent calls, reward strain developers,
-            support market ranking, and govern immune policies and ecosystem funding.
+            VRS tracks estimated cost, scores variants, and records reusable outputs in the receipt.
           </p>
           <dl class="token-grid">
             <div>
-              <dt>Full name</dt>
-              <dd>VIRUS Protocol Token</dd>
+              <dt>Runtime unit</dt>
+              <dd>VRS</dd>
             </div>
             <div>
               <dt>Ticker</dt>
@@ -404,35 +404,35 @@
             </div>
             <div>
               <dt>Use cases</dt>
-              <dd>Call, stake, reward, govern</dd>
+              <dd>Budget, score, compare</dd>
             </div>
           </dl>
         </div>
       </section>
 
       <section class="value-loop" aria-labelledby="value-title">
-        <div class="section-label">Value Loop</div>
-        <h2 id="value-title">VRS is not just a payment button; it is the incentive loop for agent markets.</h2>
+        <div class="section-label">Metering Loop</div>
+          <h2 id="value-title">Cost, score, reuse, and routing stay visible inside the runtime.</h2>
         <div class="loop-grid">
           <article>
             <span>01</span>
-            <strong>Call</strong>
-            <p>Users spend VRS to call strains, tools, and advanced mutation strategies.</p>
+            <strong>Budget</strong>
+            <p>Estimate cost in VRS before execution starts.</p>
           </article>
           <article>
             <span>02</span>
-            <strong>Earn</strong>
-            <p>Developers earn from reuse, task success, and marketplace transactions.</p>
+            <strong>Score</strong>
+            <p>Rank variants by cost, quality, and immune status.</p>
           </article>
           <article>
             <span>03</span>
-            <strong>Rank</strong>
-            <p>Staking, scoring, and real performance can influence market ranking.</p>
+            <strong>Reuse</strong>
+            <p>Store receipts and selected artifacts for later runs.</p>
           </article>
           <article>
             <span>04</span>
-            <strong>Govern</strong>
-            <p>Holders can govern immune rules, ecosystem funding, and protocol parameters.</p>
+            <strong>Route</strong>
+            <p>Send the selected network into storage or the next surface.</p>
           </article>
         </div>
       </section>
@@ -440,35 +440,35 @@
       <section class="roadmap" id="roadmap" aria-labelledby="roadmap-title">
         <div class="section-heading">
           <div>
-            <div class="section-label">Roadmap</div>
-            <h2 id="roadmap-title">From concept site to runnable protocol.</h2>
+            <div class="section-label">Expansion Boundaries</div>
+            <h2 id="roadmap-title">Runtime v1 ships now; adapters and hosted surfaces come later.</h2>
           </div>
           <p>
-            The roadmap moves from Runtime v1 to a developer marketplace and protocol economy, keeping
-            the product anchored in runnable agent infrastructure.
+            The roadmap starts with the local runtime, then expands toward adapters, authentication, hosted
+            control, and publishing boundaries.
           </p>
         </div>
 
         <div class="roadmap-list">
           <article>
             <span>Phase 01</span>
-            <strong>Runtime v1 Launch</strong>
-            <p>Website, task network generator, strain registry, local runtime, and VRS value layer.</p>
+            <strong>Runtime v1 Shipping</strong>
+            <p>Website, task network generator, strain registry, local runtime, and run receipts.</p>
           </article>
           <article>
             <span>Phase 02</span>
-            <strong>Agent Runtime</strong>
-            <p>Real LLMs, tool calls, logs, cost tracking, and immune review.</p>
+            <strong>Adapters</strong>
+            <p>LLM provider and tool adapters behind explicit interfaces.</p>
           </article>
           <article>
             <span>Phase 03</span>
-            <strong>Strain Marketplace</strong>
-            <p>Developer DNA publishing, user calls, rewards, and verifiable scoring.</p>
+            <strong>Hosted Control</strong>
+            <p>Authentication, logs, queues, and remote runtime control.</p>
           </article>
           <article>
             <span>Phase 04</span>
-            <strong>Protocol Economy</strong>
-            <p>VRS payments, staking-based ranking, governance, and ecosystem funding.</p>
+            <strong>Publishing Boundary</strong>
+            <p>Registry, reuse, and scoring for custom strains.</p>
           </article>
         </div>
       </section>
@@ -477,10 +477,10 @@
         <div class="section-label">Launch Lab</div>
         <div class="launch-layout">
           <div>
-            <h2 id="launch-title">Enter a goal and generate your task network.</h2>
+            <h2 id="launch-title">Enter a goal and generate a task network.</h2>
             <p>
-              This is the Runtime Lab surface for generating task networks with execution nodes, costs,
-              logs, and reusable outputs.
+              Use the Runtime Lab to generate task networks with execution nodes, costs, logs, and reusable
+              outputs.
             </p>
           </div>
           <form class="lab-form">
@@ -500,7 +500,7 @@
               <button type="submit">Generate network</button>
             </div>
             <p class="lab-result" role="status" aria-live="polite">
-              Active strain: Research-Strain. Waiting for task input.
+              Active strain: Research-Strain. Ready for task input.
             </p>
           </form>
         </div>
@@ -509,7 +509,10 @@
 
     <footer class="footer">
       <strong>VIRUS</strong>
-      <span>Self-replicating intelligence, human-controlled.</span>
+      <span>Local-first runtime, human-controlled.</span>
+      <a href="https://github.com/mmenicah84/virus-protocol.git" target="_blank" rel="noreferrer">
+        GitHub repository
+      </a>
     </footer>
 
     <script src="./script.js"></script>
