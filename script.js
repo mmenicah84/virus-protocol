@@ -167,12 +167,12 @@ function updateLabPreview(goal, mode) {
   previewStatus.textContent = "Reviewed";
   previewId.textContent = `vnet_${seed}`;
   previewMode.textContent = mode;
-  previewCost.textContent = `${cost} VRS`;
+  previewCost.textContent = `${cost} VIRUS`;
   previewReceiptId.textContent = `rcpt_${seed.slice(0, 6)}`;
   previewStep1.textContent = `${strainName} DNA normalized the objective: ${goalSummary}`;
   previewStep2.textContent = `Immune review passed with ${strategy}, budget guard, and permission scope.`;
   previewStep3.textContent = `Reusable network package prepared with run receipt rcpt_${seed.slice(0, 6)}.`;
-  previewReceipt.textContent = `receipt=rcpt_${seed.slice(0, 6)} | network=vnet_${seed} | strain=${strainName.toLowerCase()} | mode=${strategy} | cost=${cost} VRS | status=reviewed`;
+  previewReceipt.textContent = `receipt=rcpt_${seed.slice(0, 6)} | network=vnet_${seed} | strain=${strainName.toLowerCase()} | mode=${strategy} | cost=${cost} VIRUS | status=reviewed`;
 }
 
 strainRows.forEach((row) => {
