@@ -1434,6 +1434,21 @@ h2 {
   color: var(--ink);
 }
 
+.footer-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-links a {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.footer-links a:hover {
+  color: #4f6811;
+}
+
 @keyframes expand {
   0%,
   100% {
