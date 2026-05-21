@@ -77,6 +77,7 @@ test("flags budget pressure without blocking execution", () => {
 
   assert.equal(network.immuneReview.status, "passed");
   assert.equal(network.immuneReview.findings[0].code, "budget_exceeded");
+  assert.match(network.immuneReview.findings[0].message, /VIRUS/);
 });
 
 test("publishes valid custom DNA and rejects duplicates", () => {

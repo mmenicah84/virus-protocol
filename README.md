@@ -26,6 +26,8 @@ The current repository ships VIRUS Runtime v1: a self-contained local product fo
 - [Scoring Model](#scoring-model)
 - [Strain Registry Boundary](#strain-registry-boundary)
 - [Testing](#testing)
+- [Project Website](#project-website)
+- [Changelog](#changelog)
 - [Roadmap](#roadmap)
 - [FAQ](#faq)
 
@@ -320,7 +322,7 @@ node ./bin/virus.js health
 | `--strain` | Built-in or published strain ID. Built-ins are `research`, `code`, `audit`, `market`. | `research` |
 | `--mode` | Mutation mode. Supports `balanced`, `fast`, `precise`, `low_cost`. | `balanced` |
 | `--host` | Execution host. Supports `local`, `public`, `repository`, `cloud`. | `local` |
-| `--budget` | VRS budget for the run. | `40` |
+| `--budget` | VIRUS budget for the run. | `40` |
 | `--json` | Print the full task network JSON. | `false` |
 
 ## HTTP API
@@ -457,7 +459,7 @@ VIRUS_DATA_DIR=.virus-data npm start
 | Strain | `research` |
 | Mode | `balanced` |
 | Host | `local` |
-| Budget | `40 VRS` |
+| Budget | `40 VIRUS` |
 | Request body limit | `64 KB` |
 
 ## Agent DNA
@@ -576,6 +578,10 @@ The repository includes a product website:
 
 Open `index.html` directly in a browser to preview the landing page.
 
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for maintenance updates and release notes.
+
 ## Roadmap
 
 ### Phase 1: Runtime v1
@@ -628,9 +634,9 @@ Runtime v1 ships with a deterministic local execution engine. Provider-backed LL
 
 Local-first makes the runtime easy to inspect, test, fork, and upload to GitHub before adding hosted infrastructure.
 
-### How does VRS work in Runtime v1?
+### How does VIRUS work in Runtime v1?
 
-VRS is represented as a runtime accounting unit in Runtime v1. It is used for estimated cost, scoring, and run receipts inside the local runtime.
+VIRUS is represented as the runtime accounting unit in Runtime v1. It is used for estimated cost, scoring, and run receipts inside the local runtime.
 
 ### Does the runtime execute real shell commands?
 

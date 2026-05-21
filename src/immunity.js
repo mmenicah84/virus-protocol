@@ -1,3 +1,5 @@
+import { runtimeUnit } from "./units.js";
+
 const blockedGoalPatterns = [
   /steal/i,
   /phish/i,
@@ -22,7 +24,13 @@ export function runImmuneReview({ goal, strain, variants, budgetVrs = 40, host =
 
   const requestedCost = variants.reduce((sum, variant) => sum + variant.estimatedCostVrs, 0);
   if (requestedCost > budgetVrs) {
-    findings.push(makeFinding("budget_exceeded", `Estimated ${requestedCost} VRS exceeds budget ${budgetVrs} VRS.`, "medium"));
+    findings.push(
+      makeFinding(
+        "budget_exceeded",
+        `Estimated ${requestedCost} ${runtimeUnit} exceeds budget ${budgetVrs} ${runtimeUnit}.`,
+        "medium",
+      ),
+    );
   }
 
   const unsafePermissions = strain.permissions.filter((permission) => destructiveTools.has(permission));

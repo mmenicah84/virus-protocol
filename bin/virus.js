@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { createFileStorage, createMarketplace, createTaskNetwork, runtimeVersion } from "../src/index.js";
+import { runtimeUnit } from "../src/units.js";
 
 const [, , command, ...args] = process.argv;
 const storage = createFileStorage();
@@ -126,12 +127,12 @@ function printNetwork(network) {
   console.log(`Strain: ${network.strain.name}`);
   console.log(`Immune status: ${network.immuneReview.status}`);
   console.log(`Selected strategy: ${network.summary.selectedStrategy}`);
-  console.log(`Estimated cost: ${network.summary.estimatedCostVrs} VRS`);
+  console.log(`Estimated cost: ${network.summary.estimatedCostVrs} ${runtimeUnit}`);
   console.log("");
   console.log("Variants:");
 
   for (const variant of network.variants) {
-    console.log(`- ${variant.label}: score ${variant.score}, cost ${variant.estimatedCostVrs} VRS, risk ${variant.risk}`);
+    console.log(`- ${variant.label}: score ${variant.score}, cost ${variant.estimatedCostVrs} ${runtimeUnit}, risk ${variant.risk}`);
   }
 }
 
@@ -154,7 +155,7 @@ Options:
   --strain   research | code | audit | market
   --mode     balanced | fast | precise | low_cost
   --host     local | public
-  --budget   VRS budget number
+  --budget   VIRUS budget number
   --json     Print full JSON task network
 `);
 }
